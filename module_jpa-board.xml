@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jpa-board" default="compile.module.jpa-board">
+  <dirname property="module.jpa-board.basedir" file="${ant.file.module_jpa-board}"/>
+  
+  <property name="module.jdk.home.jpa-board" value="${jdk.home.1.8.0_221}"/>
+  <property name="module.jdk.bin.jpa-board" value="${jdk.bin.1.8.0_221}"/>
+  <property name="module.jdk.classpath.jpa-board" value="jdk.classpath.1.8.0_221"/>
+  
+  <property name="compiler.args.jpa-board" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="jpa-board.output.dir" value="${module.jpa-board.basedir}/out/production/jpa-board"/>
+  <property name="jpa-board.testoutput.dir" value="${module.jpa-board.basedir}/out/test/jpa-board"/>
+  
+  <path id="jpa-board.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jpa-board.module.production.classpath">
+    <path refid="${module.jdk.classpath.jpa-board}"/>
+  </path>
+  
+  <path id="jpa-board.runtime.production.module.classpath">
+    <pathelement location="${jpa-board.output.dir}"/>
+  </path>
+  
+  <path id="jpa-board.module.classpath">
+    <path refid="${module.jdk.classpath.jpa-board}"/>
+    <pathelement location="${jpa-board.output.dir}"/>
+  </path>
+  
+  <path id="jpa-board.runtime.module.classpath">
+    <pathelement location="${jpa-board.testoutput.dir}"/>
+    <pathelement location="${jpa-board.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jpa-board">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jpa-board">
+    <patternset refid="excluded.from.module.jpa-board"/>
+  </patternset>
+  
+  
+  <target name="compile.module.jpa-board" depends="compile.module.jpa-board.production,compile.module.jpa-board.tests" description="Compile module jpa-board"/>
+  
+  <target name="compile.module.jpa-board.production" depends="register.custom.compilers" description="Compile module jpa-board; production classes"/>
+  
+  <target name="compile.module.jpa-board.tests" depends="register.custom.compilers,compile.module.jpa-board.production" description="compile module jpa-board; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.jpa-board" description="cleanup module">
+    <delete dir="${jpa-board.output.dir}"/>
+    <delete dir="${jpa-board.testoutput.dir}"/>
+  </target>
+</project>
